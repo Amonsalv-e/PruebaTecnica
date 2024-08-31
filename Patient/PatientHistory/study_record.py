@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 import pydicom
 from pydicom import dcmread
@@ -5,6 +6,8 @@ from pydicom import dcmread
 from PatientHistory.patient_record import PatientRecord
 
 class StudyRecord(PatientRecord):
+
+    logging.basicConfig(level=logging.INFO)
 
     folder_dicom = Path("/home/alejandro/Documentos/Prueba/Test_python/prueba_python")
     file_dicom = "sample-02-dicom.dcm"
@@ -18,6 +21,8 @@ class StudyRecord(PatientRecord):
         self._study_time = study_time
         self._study_instance_uid = study_instance_uid
         self._series_number = series_number
+
+        logging.info(f"StudyRecord successfully created for {self.name}")
 
     @property
     def modality(self):
@@ -73,6 +78,6 @@ class StudyRecord(PatientRecord):
                       f"Study Instance UID: {self._study_instance_uid}, Serie Number: {self._series_number}")
         return f"{patient_info}\n{study_info}"
 
-#study_record = StudyRecord("Juan Alvarez",23,"1994-11-22","M",90,"123456","SSN",
-#                           "XA",19931012,141812,1.1244,1)
-#print(study_record)
+study_record = StudyRecord("Juan Martinez",23,"1994-11-22","M",90,"123456","SSN",
+                           "XA",19931012,141812,1.1244,1)
+print(study_record)

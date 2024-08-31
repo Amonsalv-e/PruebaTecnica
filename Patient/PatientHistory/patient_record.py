@@ -1,7 +1,7 @@
 import logging
 class PatientRecord:
 
-    def storePatient(self, name,age, birth_date, sex, weight, patient_id, type_id):
+    def __init__(self, name,age, birth_date, sex, weight, patient_id, type_id):
         self._name = name
         self._age = age
         self._birth_date = birth_date
@@ -80,6 +80,6 @@ class PatientRecord:
             self.weight = new_diagnosis.weight
             self.patient_id = new_diagnosis.patient_id
             self.type_id = new_diagnosis.type_id
-            logging.info(f"Nuevo diagnostico{self.name}")
+            logging.info(f"New Diagnosis{self.name}")
         else:
-            logging.error(f"new_diagnosis debe ser una instancia de PatientRecord")
+            logging.error(f"new_diagnosis must be an instance of PatientRecord")
