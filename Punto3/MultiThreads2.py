@@ -1,9 +1,15 @@
+import logging
 from queue import PriorityQueue, Queue
 import json
 import os
 import time
 from threading import Thread
 from pathlib import Path
+
+
+logging.basicConfig(level=logging.INFO)
+
+_logger = logging.getLogger(__name__)
 
 global queue
 queue = Queue()
@@ -34,7 +40,7 @@ with open(file_path_json, 'r') as file:
                 record["data_size"] = data_size
                 queue.put(record)
             else:
-                print(f"Record {counter} no tiene el formato esperado:{record}")
+                print(f"Record {counter} does not have the expected format: {record}")
         except Exception as e:
             print(f"An error ocurred in thread {counter}: {e}")
 
@@ -43,6 +49,7 @@ with open(file_path_json, 'r') as file:
         max_threads = 4
         for key, value in data.items():
             if len(threads) >= max_threads:
+                logging.info(f"A slot will open up in the thread")
                 threads[0].join()
                 threads.pop(0)
 
